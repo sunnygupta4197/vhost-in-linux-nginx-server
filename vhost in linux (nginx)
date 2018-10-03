@@ -1,0 +1,64 @@
+For vhost in linux:
+
+(In Terminal)
+
+use subl for Sublime Text and vim for vim editor
+
+
+Step 1: sudo subl /etc/hosts
+		
+		#Enter address for the localhost site and then site name
+		#Example: 127.0.0.*		example.lan		(you can use any no. in the place of *, I'm using lan for local)
+		#Note: Each site should have an unique address
+
+Step 2: sudo /etc/nginx/sites-available/example.lan.conf
+
+		#In this you have to provide path for the site
+		/*
+		server {
+			listen 80;
+			listen [::]:80;
+
+			root /var/www/html/example;			//path of site folder
+			index index.php index.html index.htm;
+
+			# Make site accessible from http://localhost/
+			server_name example.lan;
+
+			//log folder is important for nginx
+
+			access_log  /var/www/html/example/log/access.log;		
+	        error_log  /var/www/html/example/log/error.log;
+
+			 location ~ \.php$ {
+		                try_files $uri /index.php =404;
+		                fastcgi_pass unix:/var/run/php/php5.6-fpm.sock;		//here you have to define the php version
+		                fastcgi_index index.php;
+		                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		                include fastcgi_params;
+		        }
+		}
+		*/
+
+Step 3:	sudo ln /etc/nginx/sites-available/example.lan.conf /etc/nginx/sites-enabled/example.lan.conf
+		
+		#you have to write example.lan.conf after sites-enabled it can't get by tab button
+
+Step 4: sudo mkdir /var/www/html/example/log
+
+		#/var/www/html/example/ = path of your site folder
+
+Step 5:	sudo chmod -R 777 your site folder path
+		
+		#To give permission to server. so that it can read you folder's file
+
+Step 6: service nginx restart
+
+		# restart you nginx server so that you can browse your file on browser
+		# if you are using apache server than you can use 
+		# sudo service apache2 restart 		//this command
+
+Step 7: open your browser and type your site name
+
+		# ex. example.lan/
+		
