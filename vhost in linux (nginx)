@@ -52,7 +52,7 @@ Step 5:	sudo chmod -R 777 your site folder path
 		
 		#To give permission to server. so that it can read you folder's file
 
-Step 6: service nginx restart
+Step 6: sudo service nginx restart
 
 		# restart you nginx server so that you can browse your file on browser
 		# if you are using apache server than you can use 
